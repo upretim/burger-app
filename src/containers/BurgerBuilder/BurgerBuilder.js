@@ -104,7 +104,7 @@ class BugerBuilder extends Component {
         })
     }
     purchaseContinueHandler = () => {
-        this.setState({
+       /*  this.setState({
             loading: true
         })
         const order = {
@@ -135,7 +135,16 @@ class BugerBuilder extends Component {
                     loading: false,
                     pruchasing: false
                 })
-            })
+            }) */
+            let queryParams=[];
+            for (let i in this.state.ingredients){
+                queryParams.push(encodeURIComponent(i)+ "="+ encodeURIComponent(this.state.ingredients[i]))
+            }
+            const queryString = queryParams.join('&')
+            this.props.history.push({
+                pathname: '/check-out',
+                search: '?'+ queryString
+            });
     }
 
     render() {
