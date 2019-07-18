@@ -104,42 +104,11 @@ class BugerBuilder extends Component {
         })
     }
     purchaseContinueHandler = () => {
-       /*  this.setState({
-            loading: true
-        })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Manoj",
-                address: {
-                    street: "Noida 126",
-                    zipCode: '110059',
-                    country: "India"
-                },
-                email: "test@test.com",
-                deliveryMothod: "fastest"
-            }
-        }
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log(response);
-                this.setState({
-                    loading: false,
-                    pruchasing: false
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({
-                    loading: false,
-                    pruchasing: false
-                })
-            }) */
             let queryParams=[];
             for (let i in this.state.ingredients){
                 queryParams.push(encodeURIComponent(i)+ "="+ encodeURIComponent(this.state.ingredients[i]))
             }
+            queryParams.push('price='+this.state.totalPrice)
             const queryString = queryParams.join('&')
             this.props.history.push({
                 pathname: '/check-out',
@@ -181,9 +150,6 @@ class BugerBuilder extends Component {
         if (this.state.loading) {
             orderSummary = <Spinner />
         }
-
-
-
         return (
             <Aux>
                 <Modal show={this.state.pruchasing} modalClosed={this.cancelPurchaseHandler}>
