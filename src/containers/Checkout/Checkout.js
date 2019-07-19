@@ -19,9 +19,7 @@ class Checkout extends Component {
         let price;
         for (let params of query.entries()){
             if(params[0]==='price'){
-                this.setState({
-                    price : +params[1]
-                })
+             price = Number.parseFloat(params[1])
             }
             else{
                 ingredients[params[0]] =  +params[1]              

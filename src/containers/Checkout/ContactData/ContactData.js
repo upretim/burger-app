@@ -6,7 +6,6 @@ import Spinner from './../../../components/UI/Spinner/Spinner';
 
 class ContactData extends Component {
     constructor(props){
-        console.log('props are ', props);
         super(props)
         this.state = {
             name: "",
