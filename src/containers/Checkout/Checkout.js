@@ -3,17 +3,14 @@ import classes from './Checkout.css';
 import CheckoutSummary  from './../../components/Order/CheckoutSummary/CheckoutSummary';
 import {Route} from 'react-router-dom';
 import ContactData from './../../containers/Checkout/ContactData/ContactData';
+import {connect} from 'react-redux';
 
 class Checkout extends Component {
     constructor(props){
      super(props);
-     this.state = {
-         ingredients: null,
-         totalPrice: 0
-     }
     }
 
-    componentWillMount(){
+   /* componentWillMount(){
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
         let price;
@@ -29,7 +26,7 @@ class Checkout extends Component {
             ingredients : ingredients,
             totalPrice : price
         })
-    }
+    }*/
 
     checkoutCanacelledHandler = ()=>{
          this.props.history.goBack()
@@ -41,18 +38,24 @@ class Checkout extends Component {
   render(){
       return(
           <div>
-           <CheckoutSummary ingredients={this.state.ingredients}
+           <CheckoutSummary ingredients={this.props.ings}
            onCheckoutCancelled={this.checkoutCanacelledHandler}
            onCheckoutContinuted={this.checkoutContintedHandler}/>
            <Route 
             path ={this.props.match.path + "/contact-data"} 
-            render={(props)=><ContactData 
-              ingredients={this.state.ingredients}
-              totalPrice={this.state.totalPrice} {...props}
-              />}/>
-          </div>
-          
+            component= {ContactData}/>
+          </div>          
       )
   }
 }
-export default Checkout;
+
+const mapstateToProps =(state)=>{
+    return {
+        ings: state.ingredients
+    }
+}
+
+const mapDispatchToProps = ()=>{
+// no need to implement it here...
+}
+export default connect(mapstateToProps)(Checkout);
